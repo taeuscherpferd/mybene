@@ -1,6 +1,11 @@
+import logging
 import random
 
+from .tcp import sequence_logger
 from .sim import Sim
+
+logger = logging.getLogger(__name__)
+queue_logger = logger.getChild('queue')
 
 
 class Link(object):
@@ -17,11 +22,7 @@ class Link(object):
         self.busy = False
         self.queue = []
         if (self.startpoint.hostname == 'n1'):
-            Sim.plot('queue.csv','Time,Queue Size,Event\n')
-
-    @staticmethod
-    def trace(message):
-        Sim.trace("Link", message)
+            queue_logger.debug('Time,Queue Size,Event')
 
     # -- Handling packets --
 
@@ -31,13 +32,13 @@ class Link(object):
             return
         # drop packet due to queue overflow
         if self.queue_size and len(self.queue) == self.queue_size:
-            self.trace("%d dropped packet due to queue overflow" % self.address)
+            logger.debug("%d dropped packet due to queue overflow" % self.address)
             if (self.startpoint.hostname == 'n1'):
-                Sim.plot('queue.csv','%s,%s,%s\n' % (Sim.scheduler.current_time(),len(self.queue),'drop'))
+                queue_logger.debug('%s,%s,%s' % (Sim.scheduler.current_time(),len(self.queue),'drop'))
             return
         # drop packet due to random loss
         if self.loss > 0 and random.random() < self.loss:
-            self.trace("%d dropped packet due to random loss" % self.address)
+            logger.debug("%d dropped packet due to random loss" % self.address)
             return
         packet.enter_queue = Sim.scheduler.current_time()
         if len(self.queue) == 0 and not self.busy:
@@ -48,13 +49,13 @@ class Link(object):
             # add packet to queue
             self.queue.append(packet)
             if (self.startpoint.hostname == 'n1'):
-                Sim.plot('queue.csv','%s,%s,%s\n' % (Sim.scheduler.current_time(),len(self.queue),'size'))
+                queue_logger.debug('%s,%s,%s' % (Sim.scheduler.current_time(),len(self.queue),'size'))
 
 
     def transmit(self, packet):
         if (self.startpoint.hostname == 'n1'):
             try:
-                Sim.plot('sequence.csv','%s,%s,%s\n' % (Sim.scheduler.current_time(),packet.sequence,'transmit'))
+                sequence_logger.debug('%s,%s,%s' % (Sim.scheduler.current_time(),packet.sequence,'transmit'))
             except:
                 pass
         packet.queueing_delay += Sim.scheduler.current_time() - packet.enter_queue
@@ -70,7 +71,7 @@ class Link(object):
         if len(self.queue) > 0:
             packet = self.queue.pop(0)
             if (self.startpoint.hostname == 'n1'):
-                Sim.plot('queue.csv','%s,%s,%s\n' % (Sim.scheduler.current_time(),len(self.queue),'size'))
+                queue_logger.debug('%s,%s,%s' % (Sim.scheduler.current_time(),len(self.queue),'size'))
             self.transmit(packet)
         else:
             self.busy = False

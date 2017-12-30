@@ -3,8 +3,8 @@ import sys
 
 sys.path.append('..')
 
-from src.link import Link
-from src.node import Node
+from bene.link import Link
+from bene.node import Node
 
 
 class Network(object):

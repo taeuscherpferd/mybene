@@ -1,13 +1,14 @@
 
 from __future__ import print_function
 
+import logging
 import sys
 
 sys.path.append('..')
 
-from src.sim import Sim
-from src.transport import Transport
-from src.tcp import TCP
+from bene.sim import Sim
+from bene.transport import Transport
+from bene.tcp import TCP
 
 from networks.network import Network
 
@@ -15,6 +16,10 @@ import optparse
 import os
 import subprocess
 
+logger = logging.getLogger('app')
+# uncomment the lines below to make app output green
+#from bene.sim import TERM_COLOR_GREEN
+#Sim.add_console_logging('app', TERM_COLOR_GREEN)
 
 class AppHandler(object):
     def __init__(self, filename):
@@ -25,7 +30,7 @@ class AppHandler(object):
         self.f = open(os.path.join(self.directory, self.filename), 'wb')
 
     def receive_data(self, data):
-        Sim.trace('AppHandler', "application got %d bytes" % (len(data)))
+        logger.debug("application got %d bytes" % (len(data)))
         self.f.write(data)
         self.f.flush()
 
@@ -69,9 +74,10 @@ class Main(object):
     def run(self):
         # parameters
         Sim.scheduler.reset()
-        Sim.set_debug('AppHandler')
-        Sim.set_debug('TCP')
-        Sim.set_debug('Plot')
+        logging.getLogger('app').setLevel(logging.DEBUG)
+        logging.getLogger('bene.tcp').setLevel(logging.DEBUG)
+        logging.getLogger('bene.link.queue').setLevel(logging.DEBUG)
+        logging.getLogger('bene.tcp.sequence').setLevel(logging.DEBUG)
 
         # setup network
         net = Network('../networks/one-hop.txt')
