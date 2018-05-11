@@ -37,7 +37,7 @@ class Generator(object):
 
 class DelayHandler(object):
     @staticmethod
-    def receive_packet(packet):
+    def receive_packet(packet, **kwargs):
         print((Sim.scheduler.current_time(),
                packet.ident,
                packet.created,

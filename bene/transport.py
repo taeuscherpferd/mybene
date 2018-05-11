@@ -15,7 +15,7 @@ class Transport(object):
                         source_address, source_port)
         self.binding[address_data] = connection
 
-    def receive_packet(self, packet):
+    def receive_packet(self, packet, **kwargs):
         address_data = (packet.source_address, packet.source_port,
                         packet.destination_address, packet.destination_port)
         self.binding[address_data].receive_packet(packet)

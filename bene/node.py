@@ -66,17 +66,17 @@ class Node(object):
         # forward the packet
         self.forward_packet(packet)
 
-    def receive_packet(self, packet):
+    def receive_packet(self, (packet, link)):
         # handle broadcast packets
         if packet.destination_address == 0:
             logger.debug("%s received packet" % self.hostname)
-            self.deliver_packet(packet)
+            self.deliver_packet(packet, link)
         else:
             # check if unicast packet is for me
             for link in self.links:
                 if link.address == packet.destination_address:
                     logger.debug("%s received packet" % self.hostname)
-                    self.deliver_packet(packet)
+                    self.deliver_packet(packet, link)
                     return
 
         # decrement the TTL and drop if it has reached the last hop
@@ -88,10 +88,10 @@ class Node(object):
         # forward the packet
         self.forward_packet(packet)
 
-    def deliver_packet(self, packet):
+    def deliver_packet(self, packet, link):
         if packet.protocol not in self.protocols:
             return
-        self.protocols[packet.protocol].receive_packet(packet)
+        self.protocols[packet.protocol].receive_packet(packet, link=link)
 
     def forward_packet(self, packet):
         if packet.destination_address == 0:

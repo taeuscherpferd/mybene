@@ -55,7 +55,7 @@ class TCP(Connection):
         if self.node.hostname =='n1':
             sequence_logger.debug('%s,%s,%s' % (Sim.scheduler.current_time(),sequence,event))
 
-    def receive_packet(self, packet):
+    def receive_packet(self, packet, **kwargs):
         """ Receive a packet from the network layer. """
         if packet.ack_number > 0:
             # handle ACK

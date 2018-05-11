@@ -15,7 +15,7 @@ class Connection(object):
         # setup application delivery
         self.app = app
 
-    def receive_packet(self, packet):
+    def receive_packet(self, packet, **kwargs):
         pass
 
     def deliver(self, data):
