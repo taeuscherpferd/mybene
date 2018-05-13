@@ -7,6 +7,8 @@ logger = logging.getLogger(__name__)
 
 
 class Node(object):
+    _allow_forward = True
+
     def __init__(self, hostname):
         self.hostname = hostname
         self.links = []
@@ -79,14 +81,15 @@ class Node(object):
                     self.deliver_packet(packet, link)
                     return
 
-        # decrement the TTL and drop if it has reached the last hop
-        packet.ttl -= 1
-        if packet.ttl <= 0:
-            logger.debug("%s dropping packet due to TTL expired" % self.hostname)
-            return
+        if self._allow_forward:
+            # decrement the TTL and drop if it has reached the last hop
+            packet.ttl -= 1
+            if packet.ttl <= 0:
+                logger.debug("%s dropping packet due to TTL expired" % self.hostname)
+                return
 
-        # forward the packet
-        self.forward_packet(packet)
+            # forward the packet
+            self.forward_packet(packet)
 
     def deliver_packet(self, packet, link):
         if packet.protocol not in self.protocols:
@@ -123,3 +126,6 @@ class Node(object):
             logger.debug("%s forwarding broadcast packet to %s" % (self.hostname, link.endpoint.hostname))
             packet_copy = copy.deepcopy(packet)
             link.send_packet(packet_copy)
+
+class Host(Node):
+    _allow_forward = False
