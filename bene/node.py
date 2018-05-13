@@ -101,13 +101,22 @@ class Node(object):
             # forward the packet
             self.forward_unicast_packet(packet)
 
+    def get_link_for_address(self, address):
+        if address in self.forwarding_table:
+            return self.forwarding_table[address]
+        return None
+
+    def send_packet_on_link(self, packet, link, next_hop_address):
+        link.send_packet(packet)
+
     def forward_unicast_packet(self, packet):
-        if packet.destination_address not in self.forwarding_table:
+        link = self.get_link_for_address(packet.destination_address)
+        if link is None:
             logger.debug("%s no routing entry for %d" % (self.hostname, packet.destination_address))
             return
-        link = self.forwarding_table[packet.destination_address]
         logger.debug("%s forwarding packet to %d" % (self.hostname, packet.destination_address))
-        link.send_packet(packet)
+        next_hop_address = link.endpoint.get_address(self.hostname)
+        self.send_packet_on_link(packet, link, next_hop_address)
 
     def forward_broadcast_packet(self, packet):
         for link in self.links:
