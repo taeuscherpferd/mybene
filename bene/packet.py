@@ -1,10 +1,12 @@
 class Packet(object):
-    def __init__(self, source_address=1, source_port=0,
-                 destination_address=1, destination_port=0,
+    def __init__(self, source_mac_address=None, source_address=1, source_port=0,
+                 destination_mac_address=None, destination_address=1, destination_port=0,
                  ident=0, ttl=100, protocol="None", body=b"", length=0):
         # standard packet fields
+        self.source_mac_address = source_mac_address
         self.source_address = source_address
         self.source_port = source_port
+        self.destination_mac_address = destination_mac_address
         self.destination_address = destination_address
         self.destination_port = destination_port
         self.ident = ident

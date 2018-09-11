@@ -5,12 +5,14 @@ sys.path.append('..')
 
 from bene.link import Link
 from bene.node import Node
+from bene.mac import ByteSimilarMacAddressFactory
 
 
 class Network(object):
     def __init__(self, config):
         self.config = config
         self.nodes = {}
+        self.mac_address_factory = ByteSimilarMacAddressFactory()
         self.address = 1
         self.build()
 
@@ -34,7 +36,8 @@ class Network(object):
         start = self.get_node(fields[0])
         for i in range(1, len(fields)):
             end = self.get_node(fields[i])
-            l = Link(self.address, start, endpoint=end)
+            l = Link(str(self.mac_address_factory), self.address, start, endpoint=end)
+            self.mac_address_factory.advance()
             self.address += 1
             start.add_link(l)
 
