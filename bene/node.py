@@ -9,8 +9,9 @@ logger = logging.getLogger(__name__)
 class Node(object):
     _allow_forward = True
 
-    def __init__(self, hostname):
+    def __init__(self, hostname, default_gateway=None):
         self.hostname = hostname
+        self.default_gateway = default_gateway
         self.links = []
         self.protocols = {}
         self.forwarding_table = {}
