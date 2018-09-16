@@ -1,3 +1,5 @@
+BROADCAST_MAC_ADDRESS = 'FF-FF-FF-FF'
+
 class MacAddressFactory(object):
     def __init__(self, seed=None):
         if seed is None:
