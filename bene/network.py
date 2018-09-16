@@ -12,13 +12,14 @@ class Network(object):
         self.config = config
         self.nodes = {}
         self.mac_address_factory = ByteSimilarMacAddressFactory()
-        self.address = 1
+        self.ip_address_factory = IPAddressFactory()
         self.build()
 
     def build(self):
         state = 'network'
         with open(self.config) as f:
             for line in f.readlines():
+                line = line.strip()
                 if line.startswith('#'):
                     continue
                 if line.strip() == "":
@@ -35,9 +36,9 @@ class Network(object):
         start = self.get_node(fields[0])
         for i in range(1, len(fields)):
             end = self.get_node(fields[i])
-            l = Link(str(self.mac_address_factory), self.address, start, endpoint=end)
+            l = Link(str(self.mac_address_factory), self.ip_address_factory.next(), start, endpoint=end)
             self.mac_address_factory.advance()
-            self.address += 1
+            self.ip_address_factory.advance()
             start.add_link(l)
 
     def configure_link(self, line):

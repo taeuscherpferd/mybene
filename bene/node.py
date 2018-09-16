@@ -1,6 +1,7 @@
 import copy
 import logging
 
+from .ip import BROADCAST_IP_ADDRESS
 from .sim import Sim
 
 logger = logging.getLogger(__name__)
@@ -71,7 +72,7 @@ class Node(object):
 
     def receive_packet(self, (packet, link)):
         # handle broadcast packets
-        if packet.destination_address == 0:
+        if packet.destination_address == BROADCAST_IP_ADDRESS:
             logger.debug("%s received packet" % self.hostname)
             self.deliver_packet(packet, link)
         else:
@@ -98,7 +99,7 @@ class Node(object):
         self.protocols[packet.protocol].receive_packet(packet, link=link)
 
     def forward_packet(self, packet):
-        if packet.destination_address == 0:
+        if packet.destination_address == BROADCAST_IP_ADDRESS:
             # broadcast the packet
             self.forward_broadcast_packet(packet)
         else:
@@ -116,9 +117,9 @@ class Node(object):
     def forward_unicast_packet(self, packet):
         link = self.get_link_for_address(packet.destination_address)
         if link is None:
-            logger.debug("%s no routing entry for %d" % (self.hostname, packet.destination_address))
+            logger.debug("%s no routing entry for %s" % (self.hostname, packet.destination_address))
             return
-        logger.debug("%s forwarding packet to %d" % (self.hostname, packet.destination_address))
+        logger.debug("%s forwarding packet to %s" % (self.hostname, packet.destination_address))
         next_hop_address = link.endpoint.get_address(self.hostname)
         self.send_packet_on_link(packet, link, next_hop_address)
 

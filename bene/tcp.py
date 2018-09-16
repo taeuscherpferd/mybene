@@ -89,7 +89,7 @@ class TCP(Connection):
 
         # send the packet
         self.plot_sequence(sequence,'send')
-        logger.debug("%s (%d) sending TCP segment to %d for %d" % (
+        logger.debug("%s (%s) sending TCP segment to %s for %d" % (
             self.node.hostname, self.source_address, self.destination_address, packet.sequence))
         self.transport.send_packet(packet)
 
@@ -106,7 +106,7 @@ class TCP(Connection):
 
     def retransmit(self, event):
         """ Retransmit data. """
-        logger.debug("%s (%d) retransmission timer fired" % (self.node.hostname, self.source_address))
+        logger.debug("%s (%s) retransmission timer fired" % (self.node.hostname, self.source_address))
 
     def cancel_timer(self):
         """ Cancel the timer. """
@@ -121,7 +121,7 @@ class TCP(Connection):
         """ Handle incoming data. This code currently gives all data to
             the application, regardless of whether it is in order, and sends
             an ACK."""
-        logger.debug("%s (%d) received TCP segment from %d for %d" % (
+        logger.debug("%s (%s) received TCP segment from %s for %d" % (
             self.node.hostname, packet.destination_address, packet.source_address, packet.sequence))
         self.app.receive_data(packet.body)
         self.send_ack()
@@ -134,6 +134,6 @@ class TCP(Connection):
                            destination_port=self.destination_port,
                            sequence=self.sequence, ack_number=self.ack)
         # send the packet
-        logger.debug("%s (%d) sending TCP ACK to %d for %d" % (
+        logger.debug("%s (%s) sending TCP ACK to %s for %d" % (
             self.node.hostname, self.source_address, self.destination_address, packet.ack_number))
         self.transport.send_packet(packet)

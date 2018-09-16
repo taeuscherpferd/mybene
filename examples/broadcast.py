@@ -4,6 +4,7 @@ import sys
 
 sys.path.append('..')
 
+from bene.ip import BROADCAST_IP_ADDRESS
 from bene.network import Network
 from bene.sim import Sim
 from bene.packet import Packet
@@ -46,7 +47,7 @@ def main():
     # send a broadcast packet from 1 with TTL 2, so everyone should get it
     p = Packet(
         source_address=n1.get_address('n2'),
-        destination_address=0,
+        destination_address=BROADCAST_IP_ADDRESS,
         ident=1, ttl=2, protocol='broadcast', length=100)
     Sim.scheduler.add(delay=0, event=p, handler=n1.send_packet)
 
@@ -54,7 +55,7 @@ def main():
     # should get it
     p = Packet(
         source_address=n1.get_address('n2'),
-        destination_address=0,
+        destination_address=BROADCAST_IP_ADDRESS,
         ident=2, ttl=1, protocol='broadcast', length=100)
     Sim.scheduler.add(delay=1, event=p, handler=n1.send_packet)
 
@@ -62,7 +63,7 @@ def main():
     # should get it
     p = Packet(
         source_address=n3.get_address('n1'),
-        destination_address=0,
+        destination_address=BROADCAST_IP_ADDRESS,
         ident=3, ttl=1, protocol='broadcast', length=100)
     Sim.scheduler.add(delay=2, event=p, handler=n3.send_packet)
 
