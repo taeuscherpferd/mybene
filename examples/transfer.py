@@ -6,11 +6,10 @@ import sys
 
 sys.path.append('..')
 
+from bene.network import Network
 from bene.sim import Sim
 from bene.transport import Transport
 from bene.tcp import TCP
-
-from networks.network import Network
 
 import optparse
 import os

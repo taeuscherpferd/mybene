@@ -4,10 +4,9 @@ import sys
 
 sys.path.append('..')
 
+from bene.network import Network
 from bene.sim import Sim
 from bene.packet import Packet
-
-from networks.network import Network
 
 
 class BroadcastApp(object):

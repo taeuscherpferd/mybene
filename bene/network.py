@@ -1,11 +1,10 @@
 import re
 import sys
 
-sys.path.append('..')
-
-from bene.link import Link
-from bene.node import Node
-from bene.mac import ByteSimilarMacAddressFactory
+from .ip import IPAddressFactory
+from .link import Link
+from .node import Node
+from .mac import ByteSimilarMacAddressFactory
 
 
 class Network(object):
