@@ -58,7 +58,9 @@ class Sim(object):
 
         cls.add_console_logging('bene.link', TERM_COLOR_CYAN)
         cls.add_console_logging('bene.node', TERM_COLOR_MAGENTA)
-        cls.add_console_logging('bene.tcp', TERM_COLOR_YELLOW)
+        cls.add_console_logging('bene.tcp', TERM_COLOR_RED)
+        cls.add_console_logging('bene.tcp.sender', TERM_COLOR_YELLOW)
+        cls.add_console_logging('bene.tcp.receiver', TERM_COLOR_BLUE)
 
         cls.add_file_logging('bene.link.queue', 'queue.csv')
         cls.add_file_logging('bene.tcp.sequence', 'sequence.csv')
