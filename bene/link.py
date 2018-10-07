@@ -33,13 +33,13 @@ class Link(object):
             return
         # drop packet due to queue overflow
         if self.queue_size and len(self.queue) == self.queue_size:
-            logger.debug("%d dropped packet due to queue overflow" % self.address)
+            logger.debug("%s dropped packet due to queue overflow" % self.address)
             if (self.startpoint.hostname == 'n1'):
                 queue_logger.debug('%s,%s,%s' % (Sim.scheduler.current_time(),len(self.queue),'drop'))
             return
         # drop packet due to random loss
         if self.loss > 0 and random.random() < self.loss:
-            logger.debug("%d dropped packet due to random loss" % self.address)
+            logger.debug("%s dropped packet due to random loss" % self.address)
             return
         packet.enter_queue = Sim.scheduler.current_time()
         if len(self.queue) == 0 and not self.busy:
