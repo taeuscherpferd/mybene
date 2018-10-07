@@ -1,24 +1,22 @@
-
 from __future__ import print_function
 
 import logging
-import sys
-
-sys.path.append('..')
-
-from bene.network import Network
-from bene.sim import Sim
-from bene.transport import Transport
-from bene.tcp import TCP
-
 import optparse
 import os
 import subprocess
+import sys
+
+from bene.network import Network
+from bene.sim import Sim, TERM_COLOR_GREEN
+from bene.transport import Transport
+
+from tcp import TCP
+
 
 logger = logging.getLogger('app')
 # uncomment the lines below to make app output green
-#from bene.sim import TERM_COLOR_GREEN
-#Sim.add_console_logging('app', TERM_COLOR_GREEN)
+from bene.sim import TERM_COLOR_GREEN
+Sim.add_console_logging('app', TERM_COLOR_GREEN)
 
 class AppHandler(object):
     def __init__(self, filename):
@@ -33,6 +31,8 @@ class AppHandler(object):
         self.f.write(data)
         self.f.flush()
 
+    def packet_stats(self, packet):
+        pass
 
 class Main(object):
     def __init__(self):
@@ -75,6 +75,8 @@ class Main(object):
         Sim.scheduler.reset()
         logging.getLogger('app').setLevel(logging.DEBUG)
         logging.getLogger('bene.tcp').setLevel(logging.DEBUG)
+        logging.getLogger('bene.tcp.sender').setLevel(logging.DEBUG)
+        logging.getLogger('bene.tcp.receiver').setLevel(logging.DEBUG)
         logging.getLogger('bene.link.queue').setLevel(logging.DEBUG)
         logging.getLogger('bene.tcp.sequence').setLevel(logging.DEBUG)
 
