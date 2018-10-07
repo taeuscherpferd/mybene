@@ -8,9 +8,9 @@ class SendBuffer(object):
             not yet been sent. The last value is the sequence number
             for the last data in the buffer."""
         self.buffer = b''
-        self.base_seq = 0
-        self.next_seq = 0
-        self.last_seq = 0
+        self.base_seq = 1
+        self.next_seq = 1
+        self.last_seq = 1
 
     def available(self):
         """ Return number of bytes available to send. This is data that
@@ -98,7 +98,7 @@ class ReceiveBuffer(object):
             bytes."""
         self.buffer = {}
         # starting sequence number
-        self.base_seq = 0
+        self.base_seq = 1
 
     def put(self, data, sequence):
         """ Add data to the receive buffer. Put it in order of
