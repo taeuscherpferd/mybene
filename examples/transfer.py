@@ -27,7 +27,7 @@ class AppHandler(object):
         self.f = open(os.path.join(self.directory, self.filename), 'wb')
 
     def receive_data(self, data):
-        logger.debug("application got %d bytes" % (len(data)))
+        logger.info("application got %d bytes" % (len(data)))
         self.f.write(data)
         self.f.flush()
 
@@ -55,9 +55,14 @@ class Main(object):
                           default=0.0,
                           help="random loss rate")
 
+        parser.add_option("-d", "--debug", dest="debug",
+                          action="store_true", default=False,
+                          help="debug logging")
+
         (options, args) = parser.parse_args()
         self.filename = options.filename
         self.loss = options.loss
+        self.debug = options.debug
 
     def diff(self):
         args = ['diff', '-u', self.filename, os.path.join(self.directory, self.filename)]
@@ -73,12 +78,13 @@ class Main(object):
     def run(self):
         # parameters
         Sim.scheduler.reset()
-        logging.getLogger('app').setLevel(logging.DEBUG)
-        logging.getLogger('bene.tcp').setLevel(logging.DEBUG)
-        logging.getLogger('bene.tcp.sender').setLevel(logging.DEBUG)
-        logging.getLogger('bene.tcp.receiver').setLevel(logging.DEBUG)
-        logging.getLogger('bene.link.queue').setLevel(logging.DEBUG)
-        logging.getLogger('bene.tcp.sequence').setLevel(logging.DEBUG)
+        logging.getLogger('app').setLevel(logging.INFO)
+        if self.debug:
+            logging.getLogger('bene.tcp').setLevel(logging.DEBUG)
+            logging.getLogger('bene.tcp.sender').setLevel(logging.DEBUG)
+            logging.getLogger('bene.tcp.receiver').setLevel(logging.DEBUG)
+            logging.getLogger('bene.link.queue').setLevel(logging.DEBUG)
+            logging.getLogger('bene.tcp.sequence').setLevel(logging.DEBUG)
 
         # setup network
         net = Network('../networks/one-hop.txt')
