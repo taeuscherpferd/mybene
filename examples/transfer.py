@@ -24,7 +24,7 @@ class AppHandler(object):
         self.directory = 'received'
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
-        self.f = open(os.path.join(self.directory, self.filename), 'wb')
+        self.f = open(os.path.join(self.directory, os.path.basename(self.filename)), 'wb')
 
     def receive_data(self, data):
         logger.info("application got %d bytes" % (len(data)))
@@ -65,15 +65,15 @@ class Main(object):
         self.debug = options.debug
 
     def diff(self):
-        args = ['diff', '-u', self.filename, os.path.join(self.directory, self.filename)]
-        result = subprocess.Popen(args, stdout=subprocess.PIPE).communicate()[0]
-        print()
-        if not result:
-            print("File transfer correct!")
+        args = ['diff', '-u', self.filename, os.path.join(self.directory, os.path.basename(self.filename))]
+        try:
+            result = subprocess.check_call(args)
+        except OSError as e:
+            print("There was a problem running diff: %s" % e)
+        except subprocess.CalledProcessError as e:
+            print("File transfer failed.  %s" % e)
         else:
-            print("File transfer failed. Here is the diff:")
-            print()
-            print(result)
+            print("File transfer correct!")
 
     def run(self):
         # parameters
