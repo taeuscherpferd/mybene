@@ -6,6 +6,8 @@ import os
 import subprocess
 import sys
 
+sys.path.append('..')
+
 from bene.network import Network
 from bene.sim import Sim, TERM_COLOR_GREEN
 from bene.transport import Transport
