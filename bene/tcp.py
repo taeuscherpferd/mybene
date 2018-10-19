@@ -47,7 +47,7 @@ class TCP(Connection):
         self.receive_buffer = ReceiveBuffer()
         # ack number to send; represents the largest in-order sequence
         # number not yet received
-        self.ack = 0
+        self.ack = 1
 
     def plot_sequence_header(self):
         if self.node.hostname =='n1':
