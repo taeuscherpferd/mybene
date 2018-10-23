@@ -81,12 +81,13 @@ class Main(object):
         # parameters
         Sim.scheduler.reset()
         logging.getLogger('app').setLevel(logging.INFO)
+        logging.getLogger('bene.link.queue').setLevel(logging.DEBUG)
+        logging.getLogger('bene.tcp.sequence').setLevel(logging.DEBUG)
+        logging.getLogger('bene.tcp.cwnd').setLevel(logging.DEBUG)
         if self.debug:
             logging.getLogger('bene.tcp').setLevel(logging.DEBUG)
             logging.getLogger('bene.tcp.sender').setLevel(logging.DEBUG)
             logging.getLogger('bene.tcp.receiver').setLevel(logging.DEBUG)
-            logging.getLogger('bene.link.queue').setLevel(logging.DEBUG)
-            logging.getLogger('bene.tcp.sequence').setLevel(logging.DEBUG)
 
         # setup network
         net = Network('../networks/one-hop.txt')
@@ -105,9 +106,12 @@ class Main(object):
         # setup application
         a = AppHandler(self.filename)
 
+        window = 3000
+
         # setup connection
-        c1 = TCP(t1, n1.get_address('n2'), 1, n2.get_address('n1'), 1, a, window=3000)
-        c2 = TCP(t2, n2.get_address('n1'), 1, n1.get_address('n2'), 1, a, window=3000)
+        drop = []
+        c1 = TCP(t1, n1.get_address('n2'), 1, n2.get_address('n1'), 1, a, window=window, drop=drop)
+        c2 = TCP(t2, n2.get_address('n1'), 1, n1.get_address('n2'), 1, a, window=window)
 
         # send a file
         with open(self.filename, 'rb') as f:
