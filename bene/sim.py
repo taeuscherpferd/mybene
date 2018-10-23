@@ -64,3 +64,4 @@ class Sim(object):
 
         cls.add_file_logging('bene.link.queue', 'queue.csv')
         cls.add_file_logging('bene.tcp.sequence', 'sequence.csv')
+        cls.add_file_logging('bene.tcp.cwnd', 'cwnd.csv')

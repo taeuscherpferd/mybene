@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 sender_logger = logger.getChild('sender')
 receiver_logger = logger.getChild('receiver')
 sequence_logger = logger.getChild('sequence')
+cwnd_logger = logger.getChild('cwnd')
 
 
 class TCP(Connection):
@@ -56,6 +57,15 @@ class TCP(Connection):
     def plot_sequence(self,sequence,event):
         if self.node.hostname =='n1':
             sequence_logger.debug('%s,%s,%s' % (Sim.scheduler.current_time(),sequence,event))
+
+    def plot_cwnd_header(self):
+        if self.node.hostname =='n1':
+            cwnd_logger.debug('Time,Congestion Window')
+
+    def plot_cwnd(self):
+        ''' Print plotting messages. '''
+        if self.node.hostname =='n1':
+            cwnd_logger.debug('%s,%s' % (Sim.scheduler.current_time(), self.cwnd))
 
     def receive_packet(self, packet, **kwargs):
         """ Receive a packet from the network layer. """
