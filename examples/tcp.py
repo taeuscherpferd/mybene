@@ -2,7 +2,7 @@ import logging
 
 from bene.sim import Sim
 from bene.tcp import TCP as TCPStub
-from bene.tcp import logger, sender_logger, receiver_logger, sequence_logger
+from bene.tcp import logger, sender_logger, receiver_logger
 
 
 class TCP(TCPStub):
