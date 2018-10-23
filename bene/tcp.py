@@ -24,7 +24,7 @@ class TCP(Connection):
 
         # send window; represents the total number of bytes that may
         # be outstanding at one time
-        self.window = window
+        self.cwnd = window
         # send buffer
         self.send_buffer = SendBuffer()
         # maximum segment size, in bytes
@@ -34,6 +34,9 @@ class TCP(Connection):
         self.sequence = 1
         # plot sequence numbers
         self.plot_sequence_header()
+        # plot cwnd numbers
+        self.plot_cwnd_header()
+        self.plot_cwnd()
         # packets to drop
         self.drop = drop
         self.dropped = []
