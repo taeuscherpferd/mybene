@@ -127,6 +127,7 @@ class TCP(Connection):
         """ Cancel the timer. """
         if not self.timer:
             return
+        sender_logger.debug("%s (%s) canceled timer" % (self.node.hostname, self.source_address))
         Sim.scheduler.cancel(self.timer)
         self.timer = None
 
