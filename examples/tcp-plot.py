@@ -142,18 +142,21 @@ class Plotter:
         plt.savefig(filename,dpi=300)
 
 if __name__ == '__main__':
-    directory = 'graphs'
+    if len(sys.argv) < 2:
+        sys.stderr.write('Usage: %s <graph_dir>\n' % sys.argv[0])
+        sys.exit(1)
+    directory = sys.argv[1]
     if not os.path.exists(directory):
         os.makedirs(directory)
     p = Plotter()
-    p.rate('graphs/rate.png')
-    p.queue('graphs/queue.png')
+    p.rate(os.path.join(directory, 'rate.png'))
+    p.queue(os.path.join(directory, 'queue.png'))
     # these graphs may not work with multiple flows
     try:
-        p.cwnd('graphs/cwnd.png')
+        p.cwnd(os.path.join(directory, 'cwnd.png'))
     except:
         pass
     try:
-        p.sequence('graphs/sequence.png')
+        p.sequence(os.path.join(directory, 'sequence.png'))
     except:
         pass
