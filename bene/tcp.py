@@ -84,13 +84,13 @@ class TCP(Connection):
         self.send_packet(data, self.sequence)
         self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
 
-    def send_packet(self, data, sequence):
+    def send_packet(self, data, sequence, ack=0):
         packet = TCPPacket(source_address=self.source_address,
                            source_port=self.source_port,
                            destination_address=self.destination_address,
                            destination_port=self.destination_port,
                            body=data,
-                           sequence=sequence, ack_number=self.ack)
+                           sequence=sequence, ack_number=ack)
 
         if sequence in self.drop and not sequence in self.dropped:
             self.dropped.append(sequence)
