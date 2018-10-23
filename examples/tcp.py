@@ -8,6 +8,11 @@ from bene.tcp import logger, sender_logger, receiver_logger, sequence_logger
 class TCP(TCPStub):
     """ A TCP connection between two hosts."""
 
+    def __init__(self, transport, source_address, source_port,
+                 destination_address, destination_port, app=None, window=1000,drop=[]):
+        super(TCP, self).__init__(transport, source_address, source_port,
+                            destination_address, destination_port, app, window, drop)
+
     ''' Sender '''
 
     def send(self, data):
