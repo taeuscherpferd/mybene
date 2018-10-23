@@ -46,7 +46,7 @@ class Sim(object):
         if filename == '-':
             fh = logging.StreamHandler(sys.stdout)
         else:
-            fh = logging.FileHandler(filename, delay=1)
+            fh = logging.FileHandler(filename, mode='w', delay=1)
         fh.setFormatter(logging.Formatter(fmt='%(message)s'))
         fh.addFilter(SimTimeFilter())
         logger.addHandler(fh)
