@@ -149,14 +149,14 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
     p = Plotter()
-    p.rate(os.path.join(directory, 'rate.png'))
-    p.queue(os.path.join(directory, 'queue.png'))
+    p.rate(os.path.join(directory, 'rate.eps'))
+    p.queue(os.path.join(directory, 'queue.eps'))
     # these graphs may not work with multiple flows
     try:
-        p.cwnd(os.path.join(directory, 'cwnd.png'))
+        p.cwnd(os.path.join(directory, 'cwnd.eps'))
     except:
         pass
     try:
-        p.sequence(os.path.join(directory, 'sequence.png'))
+        p.sequence(os.path.join(directory, 'sequence.eps'))
     except:
         pass
