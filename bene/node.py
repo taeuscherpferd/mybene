@@ -73,13 +73,13 @@ class Node(object):
     def receive_packet(self, (packet, link)):
         # handle broadcast packets
         if packet.destination_address == BROADCAST_IP_ADDRESS:
-            logger.debug("%s received packet" % self.hostname)
+            logger.debug("%s received broadcast packet" % self.hostname)
             self.deliver_packet(packet, link)
         else:
             # check if unicast packet is for me
             for link in self.links:
                 if link.address == packet.destination_address:
-                    logger.debug("%s received packet" % self.hostname)
+                    logger.info("%s received packet" % self.hostname)
                     self.deliver_packet(packet, link)
                     return
 
@@ -117,9 +117,9 @@ class Node(object):
     def forward_unicast_packet(self, packet):
         link = self.get_link_for_address(packet.destination_address)
         if link is None:
-            logger.debug("%s no routing entry for %s" % (self.hostname, packet.destination_address))
+            logger.warn("%s no routing entry for %s" % (self.hostname, packet.destination_address))
             return
-        logger.debug("%s forwarding packet to %s" % (self.hostname, packet.destination_address))
+        logger.info("%s forwarding packet to %s" % (self.hostname, packet.destination_address))
         next_hop_address = link.endpoint.get_address(self.hostname)
         self.send_packet_on_link(packet, link, next_hop_address)
 
