@@ -8,8 +8,9 @@ from .mac import ByteSimilarMacAddressFactory
 
 
 class Network(object):
-    def __init__(self, config):
+    def __init__(self, config, node_cls=Node):
         self.config = config
+        self.node_cls = node_cls
         self.nodes = {}
         self.mac_address_factory = ByteSimilarMacAddressFactory()
         self.ip_address_factory = IPAddressFactory()
@@ -61,7 +62,7 @@ class Network(object):
 
     def get_node(self, name):
         if name not in self.nodes:
-            self.nodes[name] = Node(name)
+            self.nodes[name] = self.node_cls(name)
         return self.nodes[name]
 
     def loss(self, loss):
