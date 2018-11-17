@@ -17,8 +17,8 @@ from tcp import TCP
 
 logger = logging.getLogger('app')
 # uncomment the lines below to make app output green
-from bene.sim import TERM_COLOR_GREEN
-Sim.add_console_logging('app', TERM_COLOR_GREEN)
+#from bene.sim import TERM_COLOR_GREEN
+#Sim.add_console_logging('app', TERM_COLOR_GREEN)
 
 class AppHandler(object):
     def __init__(self, filename):
