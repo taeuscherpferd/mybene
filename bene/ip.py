@@ -6,7 +6,7 @@ class IPAddress(object):
     IPv6 address, then its length is 128 bits; otherwise, it is an IPv4
     address, and its length is 32 bits.'''
     def __init__(self, address, family=None):
-        if isinstance(address, int):
+        if isinstance(address, (int, long)):
             assert family in (socket.AF_INET, socket.AF_INET), 'Address family must be specified'
             self.address_family = family
             if self.address_family == socket.AF_INET6:
