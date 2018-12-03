@@ -9,11 +9,15 @@ queue_logger = logger.getChild('queue')
 
 
 class Link(object):
-    def __init__(self, mac_address=None, address=0, startpoint=None, endpoint=None, queue_size=None,
+    def __init__(self, mac_address=None, address=None, prefix_len=32, startpoint=None, endpoint=None, queue_size=None,
                  bandwidth=1000000.0, propagation=0.001, loss=0):
         self.running = True
         self.mac_address = mac_address
         self.address = address
+        if address is not None:
+            self.subnet = address.subnet(prefix_len)
+        else:
+            self.subnet = None
         self.startpoint = startpoint
         self.endpoint = endpoint
         self.queue_size = queue_size

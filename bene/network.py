@@ -37,7 +37,7 @@ class Network(object):
         start = self.get_node(fields[0])
         for i in range(1, len(fields)):
             end = self.get_node(fields[i])
-            l = Link(str(self.mac_address_factory), self.ip_address_factory.next(), start, endpoint=end)
+            l = Link(str(self.mac_address_factory), address=self.ip_address_factory.next(), startpoint=start, endpoint=end)
             self.mac_address_factory.advance()
             self.ip_address_factory.advance()
             start.add_link(l)

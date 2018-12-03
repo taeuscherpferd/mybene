@@ -61,10 +61,20 @@ class IPAddress(object):
         return IPAddress(self.address - other, self.address_family)
 
     def mask(self, prefix_len):
-        '''Return the mask for the given prefix length.  Note that address_len
-        is also needed.'''
-        all_ones = self._all_ones(self.address_len)
-        return all_ones << (self.address_len - prefix_len)
+        '''Return the mask for the given prefix length, as an integer.'''
+        #FIXME
+        return 0
+
+    def prefix(self, prefix_len):
+        '''Return the prefix for the given prefix length, as an integer.  Note
+        that address_len is also needed.'''
+        #FIXME
+        return 0
+
+
+    def subnet(self, prefix_len):
+        #FIXME
+        return Subnet(self, 32)
 
 class IPAddressFactory(object):
     def __init__(self, address='1.1.1.1', masklen=24):
@@ -82,3 +92,23 @@ class IPAddressFactory(object):
             raise ValueError('Address outside of range!')
 
 BROADCAST_IP_ADDRESS = IPAddress('255.255.255.255')
+
+class Subnet(object):
+    def __init__(self, prefix, prefix_len):
+        self.prefix = prefix
+        self.prefix_len = prefix_len
+        self.mask = self.prefix.mask(self.prefix_len)
+
+    def __repr__(self):
+        return str(self)
+
+    def __str__(self):
+        return '%s/%d' % (self.prefix, self.prefix_len)
+
+    def __contains__(self, ip):
+        '''Return True if ip is in this subnet, False otherwise.'''
+        #FIXME
+        return ip == self.prefix
+
+    def __hash__(self):
+        return hash((self.prefix, self.prefix_len))
