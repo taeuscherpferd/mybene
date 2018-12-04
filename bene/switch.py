@@ -29,9 +29,3 @@ class Switch(Node):
 
     def receive_packet(self, (packet, link)):
         pass
-
-    def forward_packet(self, packet):
-        pass
-
-    def forward_broadcast_packet(self, packet):
-        pass
