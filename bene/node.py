@@ -1,6 +1,7 @@
 import copy
 import logging
 
+from .forward import ForwardingTable
 from .ip import BROADCAST_IP_ADDRESS
 from .sim import Sim
 
@@ -15,7 +16,7 @@ class Node(object):
         self.default_gateway = default_gateway
         self.links = []
         self.protocols = {}
-        self.forwarding_table = {}
+        self.forwarding_table = ForwardingTable()
 
     # -- Links --
 
@@ -51,13 +52,13 @@ class Node(object):
 
     # -- Forwarding table --
 
-    def add_forwarding_entry(self, address, link):
-        self.forwarding_table[address] = link
+    def add_forwarding_entry(self, subnet, link, next_hop=None, ptp=True):
+        if next_hop is None and ptp:
+            next_hop = link.endpoint.get_link(self.hostname)
+        self.forwarding_table.add_entry(subnet, link, next_hop)
 
-    def delete_forwarding_entry(self, address):
-        if address not in self.forwarding_table:
-            return
-        del self.forwarding_table[address]
+    def delete_forwarding_entry(self, subnet):
+        self.forwarding_table.remove_entry(subnet)
 
     # -- Handling packets --
 
@@ -106,21 +107,20 @@ class Node(object):
             # forward the packet
             self.forward_unicast_packet(packet)
 
-    def get_link_for_address(self, address):
-        if address in self.forwarding_table:
-            return self.forwarding_table[address]
-        return None
+    def get_forwarding_entry(self, packet):
+        link, next_hop_address = self.forwarding_table.get_forwarding_entry(packet.destination_address)
+
+        return link, next_hop_address
 
     def send_packet_on_link(self, packet, link, next_hop_address):
         link.send_packet(packet)
 
     def forward_unicast_packet(self, packet):
-        link = self.get_link_for_address(packet.destination_address)
+        link, next_hop_address = self.get_forwarding_entry(packet)
         if link is None:
             logger.warn("%s no routing entry for %s" % (self.hostname, packet.destination_address))
             return
-        logger.info("%s forwarding packet to %s" % (self.hostname, packet.destination_address))
-        next_hop_address = link.endpoint.get_address(self.hostname)
+        logger.info("%s forwarding packet to %s (Next hop: %s)" % (self.hostname, packet.destination_address, next_hop_address))
         self.send_packet_on_link(packet, link, next_hop_address)
 
     def forward_broadcast_packet(self, packet):
