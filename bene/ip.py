@@ -71,10 +71,8 @@ class IPAddress(object):
         #FIXME
         return 0
 
-
     def subnet(self, prefix_len):
-        #FIXME
-        return Subnet(self, 32)
+        return Subnet(IPAddress(self.prefix(prefix_len), self.address_family), prefix_len)
 
 class IPAddressFactory(object):
     def __init__(self, address='1.1.1.1', masklen=24):
