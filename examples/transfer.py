@@ -96,8 +96,8 @@ class Main(object):
         # setup routes
         n1 = net.get_node('n1')
         n2 = net.get_node('n2')
-        n1.add_forwarding_entry(address=n2.get_address('n1'), link=n1.links[0])
-        n2.add_forwarding_entry(address=n1.get_address('n2'), link=n2.links[0])
+        n1.add_forwarding_entry(n2.get_address('n1'), n1.links[0])
+        n2.add_forwarding_entry(n1.get_address('n2'), n2.links[0])
 
         # setup transport
         t1 = Transport(n1)
