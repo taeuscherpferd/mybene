@@ -17,6 +17,7 @@ class Node(object):
         self.links = []
         self.protocols = {}
         self.forwarding_table = ForwardingTable()
+        self.arp_table = {}
 
     # -- Links --
 
@@ -38,7 +39,7 @@ class Node(object):
         for link in self.links:
             if link.endpoint.hostname == name:
                 return link.address
-        return 0
+        return None
 
     # -- Protocols --
 
@@ -59,6 +60,16 @@ class Node(object):
 
     def delete_forwarding_entry(self, subnet):
         self.forwarding_table.remove_entry(subnet)
+
+    # -- ARP table --
+
+    def add_arp_entry(self, address, mac_address):
+        self.arp_table[address] = mac_address
+
+    def delete_arp_entry(self, address):
+        if address not in self.arp_table:
+            return
+        del self.arp_table[address]
 
     # -- Handling packets --
 
