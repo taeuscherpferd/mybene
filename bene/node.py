@@ -2,7 +2,7 @@ import copy
 import logging
 
 from .forward import ForwardingTable
-from .ip import BROADCAST_IP_ADDRESS
+from .ip import BROADCAST_IP_ADDRESS, IPAddress, Subnet
 from .sim import Sim
 
 logger = logging.getLogger(__name__)
@@ -54,6 +54,10 @@ class Node(object):
     # -- Forwarding table --
 
     def add_forwarding_entry(self, subnet, link, next_hop=None, ptp=True):
+        # if an IP address was passed, then convert it to a subnet with
+        # maximum-length prefix
+        if isinstance(subnet, IPAddress):
+            subnet = Subnet(subnet, subnet.address_len)
         if next_hop is None and ptp:
             next_hop = link.endpoint.get_link(self.hostname)
         self.forwarding_table.add_entry(subnet, link, next_hop)
