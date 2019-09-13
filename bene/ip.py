@@ -110,3 +110,6 @@ class Subnet(object):
 
     def __hash__(self):
         return hash((self.prefix, self.prefix_len))
+
+    def __eq__(self, other):
+        return self.prefix == other.prefix and self.prefix_len == other.prefix_len
