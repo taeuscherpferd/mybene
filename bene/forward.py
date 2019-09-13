@@ -13,8 +13,8 @@ class ForwardingTable(object):
 
     def get_forwarding_entry(self, ip_address):
         #FIXME
-        subnet = Subnet(ip_address, 32)
+        subnet = Subnet(ip_address, ip_address.address_len)
         if subnet in self.entries:
-            return self.entries[max_length_subnet]
+            return self.entries[subnet]
         else:
             return None, None
