@@ -17,7 +17,7 @@ class SimTimeFilter(logging.Filter):
     def filter(self, record):
         ct = Sim.scheduler.current_time()
         record.created = ct
-        record.msecs = (ct - long(ct)) * 1000
+        record.msecs = (ct - int(ct)) * 1000
         return 1
 
 class Sim(object):

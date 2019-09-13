@@ -86,7 +86,8 @@ class Node(object):
         # forward the packet
         self.forward_packet(packet)
 
-    def receive_packet(self, (packet, link)):
+    def receive_packet(self, packet_link):
+        packet, link = packet_link
         # handle broadcast packets
         if packet.destination_address == BROADCAST_IP_ADDRESS:
             logger.debug("%s received broadcast packet" % self.hostname)

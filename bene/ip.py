@@ -1,12 +1,15 @@
 import binascii
 import socket
 
+int_type_int = type(0xff)
+int_type_long = type(0xffffffffffffffff)
+
 class IPAddress(object):
     '''An IP address object.  The address instance var is an int.  If it is an
     IPv6 address, then its length is 128 bits; otherwise, it is an IPv4
     address, and its length is 32 bits.'''
     def __init__(self, address, family=None):
-        if isinstance(address, (int, long)):
+        if isinstance(address, (int_type_int, int_type_long)):
             assert family in (socket.AF_INET, socket.AF_INET), 'Address family must be specified'
             self.address_family = family
             if self.address_family == socket.AF_INET6:
@@ -33,12 +36,12 @@ class IPAddress(object):
 
     @classmethod
     def _str_to_int(cls, address, family):
-        return int(binascii.hexlify(socket.inet_pton(family, address)), 16)
+        return int_type_long(binascii.hexlify(socket.inet_pton(family, address)), 16)
 
     @classmethod
     def _all_ones(cls, n_bits):
         '''Return an int that is n_bits long and whose value is all ones.'''
-        return int('ff' * (n_bits >> 3), 16)
+        return int_type_long('ff' * (n_bits >> 3), 16)
 
     def __hash__(self):
         return hash(self.address)
@@ -53,11 +56,11 @@ class IPAddress(object):
         return self.address < other.address
 
     def __add__(self, other):
-        assert isinstance(other, int)
+        assert isinstance(other, (int_type_int, int_type_long))
         return IPAddress(self.address + other, self.address_family)
 
     def __sub__(self, other):
-        assert isinstance(other, int)
+        assert isinstance(other, (int_type_int, int_type_long))
         return IPAddress(self.address - other, self.address_family)
 
     def mask(self, prefix_len):
