@@ -72,6 +72,15 @@ class IPAddress(object):
         #FIXME
         return 0
 
+    def prefix(self, prefix_len):
+        '''Return the prefix for the given prefix length, as an integer.  Note
+        that address_len is also needed.'''
+        #FIXME
+        return 0
+
+    def subnet(self, prefix_len):
+        return Subnet(IPAddress(self.prefix(prefix_len), self.address_family), prefix_len)
+
 class IPAddressFactory(object):
     def __init__(self, address='1.1.1.1', masklen=24):
         self.address = IPAddress(address)
