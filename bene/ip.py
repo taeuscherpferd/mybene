@@ -5,12 +5,14 @@ int_type_int = type(0xff)
 int_type_long = type(0xffffffffffffffff)
 
 class IPAddress(object):
-    '''An IP address object.  The address instance var is an int.  If it is an
+    '''
+    An IP address object.  The address instance var is an int.  If it is an
     IPv6 address, then its length is 128 bits; otherwise, it is an IPv4
-    address, and its length is 32 bits.'''
+    address, and its length is 32 bits.
+    '''
     def __init__(self, address, family=None):
         if isinstance(address, (int_type_int, int_type_long)):
-            assert family in (socket.AF_INET, socket.AF_INET), 'Address family must be specified'
+            assert family is not None, 'Address family must be specified'
             self.address_family = family
             if self.address_family == socket.AF_INET6:
                 self.address_len = 128
@@ -28,6 +30,7 @@ class IPAddress(object):
 
     @classmethod
     def _int_to_str(cls, address, family):
+        '''Convert an integer value to an IP address string, in presentation format.'''
         if family == socket.AF_INET6:
             address_len = 128
         else:
@@ -36,11 +39,12 @@ class IPAddress(object):
 
     @classmethod
     def _str_to_int(cls, address, family):
+        '''Convert an IP address string, in presentation format, to an integer.'''
         return int_type_long(binascii.hexlify(socket.inet_pton(family, address)), 16)
 
     @classmethod
     def _all_ones(cls, n_bits):
-        '''Return an int that is n_bits long and whose value is all ones.'''
+        '''Return an int that is n_bits bits long and whose value is all ones.'''
         return int_type_long('ff' * (n_bits >> 3), 16)
 
     def __hash__(self):
@@ -67,15 +71,6 @@ class IPAddress(object):
         '''Return the mask for the given prefix length, as an integer.'''
         #FIXME
         return 0
-
-    def prefix(self, prefix_len):
-        '''Return the prefix for the given prefix length, as an integer.  Note
-        that address_len is also needed.'''
-        #FIXME
-        return 0
-
-    def subnet(self, prefix_len):
-        return Subnet(IPAddress(self.prefix(prefix_len), self.address_family), prefix_len)
 
 class IPAddressFactory(object):
     def __init__(self, address='1.1.1.1', masklen=24):
