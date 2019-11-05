@@ -12,6 +12,8 @@ class TCP(TCPStub):
 
     def __init__(self, transport, source_address, source_port,
                  destination_address, destination_port, fast_retransmit, app=None, window=1000, drop=[]):
+        super(TCP, self).__init__(transport, source_address, source_port,
+                                  destination_address, destination_port, app, window, drop)
 
         self.fast_retransmit = fast_retransmit
         self.ack_count = 0
@@ -19,9 +21,7 @@ class TCP(TCPStub):
         self.ssthresh = 100000
         self.shouldSlowStart = True
         self.increment = 0
-
-        super(TCP, self).__init__(transport, source_address, source_port,
-                                  destination_address, destination_port, app, window, drop)
+        self.sequence = 0
 
     ''' Sender '''
 
@@ -38,40 +38,41 @@ class TCP(TCPStub):
         self.plot_sequence(packet.ack_number - packet.length, 'ack')
         sender_logger.debug("%s (%s) received ACK from %s for %d" % (
             self.node.hostname, packet.destination_address, packet.source_address, packet.ack_number))
-        
-        #SlowStart/CongestionAvoidance
-        #----------------------------------------------------------------------------------------------------
-        print("wThk: " + str(self.cwnd))
-        print("increment" + str(self.increment))
-        if (self.shouldSlowStart):
-            if (packet.length <= 1000):
-                self.cwnd += packet.length
-                if self.cwnd >= self.ssthresh:
-                    self.shouldSlowStart = False
-            else:
-                self.cwnd += 1000
-                if self.cwnd >= self.ssthresh:
-                    self.shouldSlowStart = False
-            self.plot_cwnd()
-        else: 
-            self.increment += (1000 * packet.length) / self.cwnd
-            if self.increment >= 1000:
-              self.cwnd += 1000
-              self.plot_cwnd()
-              self.increment -= 1000
 
         #ACKING
         #----------------------------------------------------------------------------------------------------
+        print("seq and ack: " + str(self.sequence) + " " + str(packet.ack_number))
         if self.sequence == packet.ack_number:
             self.ack_count += 1
-            # print("ackcount: " + str(self.ack_count))
 
         if self.sequence < packet.ack_number:
             self.ack_count = 0
-
+            numBytesReceived = packet.ack_number - self.sequence
             self.sequence = packet.ack_number
             self.send_buffer.slide(self.sequence)
             self.cancel_timer()
+
+            #SlowStart/CongestionAvoidance
+            #----------------------------------------------------------------------------------------------------
+            if (self.shouldSlowStart):
+                if (numBytesReceived <= 1000):
+                    self.cwnd += numBytesReceived
+
+                    if self.cwnd >= self.ssthresh:
+                        print("Do I get here?" + str(self.cwnd))
+                        self.shouldSlowStart = False
+                else:
+                    self.cwnd += 1000
+                    if self.cwnd >= self.ssthresh:
+                        self.shouldSlowStart = False
+                self.plot_cwnd()
+            else: 
+                self.increment += (1000 * numBytesReceived) / self.cwnd
+                # print("Increment: " + str(self.increment))
+                if self.increment >= 1000:
+                  self.cwnd += 1000
+                  self.plot_cwnd()
+                  self.increment -= 1000
 
             while self.send_buffer.available() > 0 and self.send_buffer.outstanding() + self.mss <= self.cwnd:
                 bufData, seqNumber = self.send_buffer.get(self.mss)
@@ -101,17 +102,21 @@ class TCP(TCPStub):
         dataToSend, seqNumber = self.send_buffer.resend(self.mss)
 
         self.timer = None
-        if (len(dataToSend) > 0):
-          self.ssthresh = max(self.cwnd / 2, 1000)
-          if self.ssthresh >= 1000:
-              self.ssthresh -= self.ssthresh % 1000
-          else:
-              self.ssthresh += self.ssthresh % 1000
 
-          self.increment = 0
-          self.shouldSlowStart = True
-          self.cwnd = 1000
-          self.plot_cwnd()
+        print("ssthresh before: " + str(self.ssthresh))
+        self.ssthresh = max(self.cwnd / 2, 1000)
+        if self.ssthresh >= 1000:
+            self.ssthresh -= self.ssthresh % 1000
+        else:
+            self.ssthresh += self.ssthresh % 1000
+
+        print("ssthresh after: " + str(self.ssthresh))
+        self.increment = 0
+        self.shouldSlowStart = True
+        self.cwnd = 1000
+        self.plot_cwnd()
+
+        if (len(dataToSend) > 0):
           self.send_packet(dataToSend, seqNumber)
 
     ''' Receiver '''
