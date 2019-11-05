@@ -45,7 +45,6 @@ class DelayHandler(object):
                packet.propagation_delay,
                packet.queueing_delay))
 
-
 def main():
     # parameters
     Sim.scheduler.reset()
@@ -75,3 +74,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

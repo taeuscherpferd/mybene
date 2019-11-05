@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+x = np.linspace(0, 1, num=11)
+means = []
+
+data = pd.read_csv("data/queue-0.1.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.2.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.3.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.4.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.5.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.6.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.7.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.8.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.9.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.95.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+data = pd.read_csv("data/queue-0.98.csv")
+meanQD = data['QD'].mean()
+means.append(meanQD)
+
+plt.plot(x, means, 'r')
+
+x = np.linspace(0, 1, num=100)
+y = x/((2*(125))*(1-x))
+
+plt.xlabel('Utilization')
+plt.ylabel('Queueing Delay')
+plt.plot(x,y, 'g')
+plt.gca().legend(('Emperical','Theoretical'))
+plt.show()
+#1000000 // (1000*8)

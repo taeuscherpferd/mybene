@@ -59,7 +59,7 @@ class Main(object):
                           help="Comma delimited list of packet numbers to drop")
 
         parser.add_option("-w", "--window", type="int", dest="window",
-                          default=3000,
+                          default=1000,
                           help="window size")
 
         parser.add_option("-r", action="store_true", dest="fastRetransmit", default=False, help="Toggles Fast Retransmit")

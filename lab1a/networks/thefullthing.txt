@@ -1,0 +1,63 @@
+--------------------
+FAST-LONG
+
+n1 n2
+n2 n1
+
+n1 n2 1Mbps 1000ms
+n2 n1 1Mbps 1000ms
+--------------------
+SLOW-SHORT
+
+n1 n2
+n2 n1
+
+n1 n2 100bps 10ms
+n2 n1 100bps 10ms
+--------------------
+FAST-SHORT
+
+n1 n2
+n2 n1
+
+n1 n2 1Mbps 10ms
+n2 n1 1Mbps 10ms
+--------------------
+FAST-FAST
+
+n1 n2 
+n2 n1 n3 
+n3 n2
+
+# link configuration
+n1 n2 1Mbps 100ms
+n2 n3 1Mbps 100ms
+
+n2 n1 1Mbps 100ms
+n3 n2 1Mbps 100ms
+--------------------
+FASTER-FASTER
+
+n1 n2 
+n2 n1 n3 
+n3 n2
+
+# link configuration
+n1 n2 1Gbps 100ms
+n2 n3 1Gbps 100ms
+
+n2 n1 1Gbps 100ms
+n3 n2 1Gbps 100ms
+--------------------
+FAST-SLOW
+
+n1 n2 
+n2 n1 n3 
+n3 n2
+
+# link configuration
+n1 n2 1Mbps 100ms
+n2 n3 256Kbps 100ms
+
+n2 n1 1Mbps 100ms
+n3 n2 256Kbps 100ms
