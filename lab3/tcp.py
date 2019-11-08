@@ -21,7 +21,6 @@ class TCP(TCPStub):
         self.ssthresh = 100000
         self.shouldSlowStart = True
         self.increment = 0
-        self.sequence = 0
 
     ''' Sender '''
 
@@ -29,7 +28,7 @@ class TCP(TCPStub):
 
         self.send_buffer.put(data)
 
-        while self.send_buffer.available() > 0 and self.send_buffer.outstanding() + self.mss <= self.cwnd:
+        while self.send_buffer.available() > 0 and self.send_buffer.outstanding() < self.cwnd:
             bufData, seqNumber = self.send_buffer.get(self.mss)
             self.send_packet(bufData, seqNumber)
 
@@ -39,9 +38,8 @@ class TCP(TCPStub):
         sender_logger.debug("%s (%s) received ACK from %s for %d" % (
             self.node.hostname, packet.destination_address, packet.source_address, packet.ack_number))
 
-        #ACKING
-        #----------------------------------------------------------------------------------------------------
-        print("seq and ack: " + str(self.sequence) + " " + str(packet.ack_number))
+        # ACKING
+        # ----------------------------------------------------------------------------------------------------
         if self.sequence == packet.ack_number:
             self.ack_count += 1
 
@@ -52,47 +50,41 @@ class TCP(TCPStub):
             self.send_buffer.slide(self.sequence)
             self.cancel_timer()
 
-            #SlowStart/CongestionAvoidance
-            #----------------------------------------------------------------------------------------------------
+            # SlowStart/CongestionAvoidance
+            # ----------------------------------------------------------------------------------------------------
             if (self.shouldSlowStart):
                 if (numBytesReceived <= 1000):
                     self.cwnd += numBytesReceived
 
                     if self.cwnd >= self.ssthresh:
-                        print("Do I get here?" + str(self.cwnd))
                         self.shouldSlowStart = False
                 else:
                     self.cwnd += 1000
                     if self.cwnd >= self.ssthresh:
                         self.shouldSlowStart = False
                 self.plot_cwnd()
-            else: 
+            else:
                 self.increment += (1000 * numBytesReceived) / self.cwnd
-                # print("Increment: " + str(self.increment))
                 if self.increment >= 1000:
-                  self.cwnd += 1000
-                  self.plot_cwnd()
-                  self.increment -= 1000
+                    self.cwnd += 1000
+                    self.plot_cwnd()
+                    self.increment -= 1000
 
-            while self.send_buffer.available() > 0 and self.send_buffer.outstanding() + self.mss <= self.cwnd:
+            while self.send_buffer.available() > 0 and self.send_buffer.outstanding() < self.cwnd:
                 bufData, seqNumber = self.send_buffer.get(self.mss)
                 self.send_packet(bufData, seqNumber)
-                
-            if self.timer is None:
-                self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
+
+            if self.timer is None and self.send_buffer.outstanding() > 0:
+                self.timer = Sim.scheduler.add(
+                    delay=self.timeout, event='retransmit', handler=self.retransmit)
             return
 
-        # if not self.fast_retransmit:
-        #     return
-
-        #Triple ACK
-        #----------------------------------------------------------------------------------------------------
+        # Triple ACK
+        # ----------------------------------------------------------------------------------------------------
         if self.ack_count == 3 and self.sequence == packet.ack_number:
             print("triple ACK'd!!!")
-            self.retransmit('retransmit')
-                
-            if self.timer is None:
-                self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
+            if self.send_buffer.outstanding() > 0:
+                self.retransmit('fast-retransmit')
 
     def retransmit(self, event):
         """ Retransmit data. """
@@ -101,25 +93,24 @@ class TCP(TCPStub):
 
         dataToSend, seqNumber = self.send_buffer.resend(self.mss)
 
-        self.timer = None
+        if event == "retransmit":
+            self.timer = None
 
-        print("ssthresh before: " + str(self.ssthresh))
         self.ssthresh = max(self.cwnd / 2, 1000)
         if self.ssthresh >= 1000:
             self.ssthresh -= self.ssthresh % 1000
         else:
             self.ssthresh += self.ssthresh % 1000
 
-        print("ssthresh after: " + str(self.ssthresh))
         self.increment = 0
         self.shouldSlowStart = True
         self.cwnd = 1000
         self.plot_cwnd()
 
-        if (len(dataToSend) > 0):
-          self.send_packet(dataToSend, seqNumber)
+        self.send_packet(dataToSend, seqNumber)
 
     ''' Receiver '''
+
     def handle_data(self, packet):
         """ Handle incoming data."""
         sender_logger.debug("%s (%s) received TCP segment from %s for %d" % (
@@ -128,9 +119,9 @@ class TCP(TCPStub):
         self.receive_buffer.put(packet.body, packet.sequence)
         cleanOrderlyData, startSequenceNum = self.receive_buffer.get()
 
-        self.app.receive_data(cleanOrderlyData, self.cwnd, packet.queueing_delay)
+        self.app.receive_data(cleanOrderlyData, self.cwnd,
+                              packet.queueing_delay)
 
-        if self.ack < startSequenceNum:
-            self.ack = startSequenceNum
+        self.ack = startSequenceNum + len(cleanOrderlyData)
 
         self.send_ack()

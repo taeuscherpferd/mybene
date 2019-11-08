@@ -1,0 +1,235 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 NOV 2019 23:58
+entering extended mode
+ \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/Users/kailean.okeefe/Desktop/bene/lab3/report/report.tex
+(/Users/kailean.okeefe/Desktop/bene/lab3/report/report.tex
+LaTeX2e <2018-12-01>
+(/usr/local/texlive/2019/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
+(/usr/local/texlive/2019/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2016/05/15 v2.6 Conversion with epstopdf on the fly (HO)
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+))) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)))) (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO)
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 438.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))) (/Users/kailean.okeefe/Desktop/bene/lab3/report/report.aux)
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+ (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count88
+\scratchdimen=\dimen105
+\scratchbox=\box27
+\nofMPsegments=\count89
+\nofMParguments=\count90
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count91
+\MPscratchDim=\dimen106
+\MPnumerator=\count92
+\makeMPintoPDFobject=\count93
+\everyMPtoPDFconversion=\toks16
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 10.
+ [1
+
+{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Package epstopdf Info: Source file: <../graphs-0drop/cwnd.eps>
+(epstopdf)                    date: 2019-11-06 11:35:52
+(epstopdf)                    size: 24555 bytes
+(epstopdf)             Output file: <../graphs-0drop/cwnd-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-11-06 23:13:59
+(epstopdf)                    size: 13630 bytes
+(epstopdf)             Command: <epstopdf --outfile=../graphs-0drop/cwnd-eps-converted-to.pdf ../graphs-0drop/cwnd.eps>
+(epstopdf)             \includegraphics on input line 24.
+Package epstopdf Info: Output file is already uptodate.
+<../graphs-0drop/cwnd-eps-converted-to.pdf, id=10, 462.52798pt x 346.89601pt>
+File: ../graphs-0drop/cwnd-eps-converted-to.pdf Graphic file (type pdf)
+<use ../graphs-0drop/cwnd-eps-converted-to.pdf>
+Package pdftex.def Info: ../graphs-0drop/cwnd-eps-converted-to.pdf  used on input line 24.
+(pdftex.def)             Requested size: 360.0pt x 270.01141pt.
+ [2 <../graphs-0drop/cwnd-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <../graphs-1drop/cwnd.eps>
+(epstopdf)                    date: 2019-11-06 21:55:00
+(epstopdf)                    size: 23725 bytes
+(epstopdf)             Output file: <../graphs-1drop/cwnd-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-11-06 23:13:59
+(epstopdf)                    size: 12845 bytes
+(epstopdf)             Command: <epstopdf --outfile=../graphs-1drop/cwnd-eps-converted-to.pdf ../graphs-1drop/cwnd.eps>
+(epstopdf)             \includegraphics on input line 33.
+Package epstopdf Info: Output file is already uptodate.
+<../graphs-1drop/cwnd-eps-converted-to.pdf, id=44, 462.52798pt x 346.89601pt>
+File: ../graphs-1drop/cwnd-eps-converted-to.pdf Graphic file (type pdf)
+<use ../graphs-1drop/cwnd-eps-converted-to.pdf>
+Package pdftex.def Info: ../graphs-1drop/cwnd-eps-converted-to.pdf  used on input line 33.
+(pdftex.def)             Requested size: 360.0pt x 270.01141pt.
+Package epstopdf Info: Source file: <../graphs-1drop/sequence.eps>
+(epstopdf)                    date: 2019-11-06 21:55:00
+(epstopdf)                    size: 46869 bytes
+(epstopdf)             Output file: <../graphs-1drop/sequence-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-11-06 23:35:31
+(epstopdf)                    size: 86166 bytes
+(epstopdf)             Command: <epstopdf --outfile=../graphs-1drop/sequence-eps-converted-to.pdf ../graphs-1drop/sequence.eps>
+(epstopdf)             \includegraphics on input line 34.
+Package epstopdf Info: Output file is already uptodate.
+<../graphs-1drop/sequence-eps-converted-to.pdf, id=45, 794.97pt x 216.81pt>
+File: ../graphs-1drop/sequence-eps-converted-to.pdf Graphic file (type pdf)
+<use ../graphs-1drop/sequence-eps-converted-to.pdf>
+Package pdftex.def Info: ../graphs-1drop/sequence-eps-converted-to.pdf  used on input line 34.
+(pdftex.def)             Requested size: 360.0pt x 98.18555pt.
+ [3 <../graphs-1drop/cwnd-eps-converted-to.pdf> <../graphs-1drop/sequence-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <../graphs-2drop/cwnd.eps>
+(epstopdf)                    date: 2019-11-06 21:56:25
+(epstopdf)                    size: 23725 bytes
+(epstopdf)             Output file: <../graphs-2drop/cwnd-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-11-06 23:36:42
+(epstopdf)                    size: 12845 bytes
+(epstopdf)             Command: <epstopdf --outfile=../graphs-2drop/cwnd-eps-converted-to.pdf ../graphs-2drop/cwnd.eps>
+(epstopdf)             \includegraphics on input line 43.
+Package epstopdf Info: Output file is already uptodate.
+<../graphs-2drop/cwnd-eps-converted-to.pdf, id=104, 462.52798pt x 346.89601pt>
+File: ../graphs-2drop/cwnd-eps-converted-to.pdf Graphic file (type pdf)
+<use ../graphs-2drop/cwnd-eps-converted-to.pdf>
+Package pdftex.def Info: ../graphs-2drop/cwnd-eps-converted-to.pdf  used on input line 43.
+(pdftex.def)             Requested size: 360.0pt x 270.01141pt.
+Package epstopdf Info: Source file: <../graphs-2drop/sequence.eps>
+(epstopdf)                    date: 2019-11-06 21:56:25
+(epstopdf)                    size: 46879 bytes
+(epstopdf)             Output file: <../graphs-2drop/sequence-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-11-06 23:36:42
+(epstopdf)                    size: 86478 bytes
+(epstopdf)             Command: <epstopdf --outfile=../graphs-2drop/sequence-eps-converted-to.pdf ../graphs-2drop/sequence.eps>
+(epstopdf)             \includegraphics on input line 44.
+Package epstopdf Info: Output file is already uptodate.
+<../graphs-2drop/sequence-eps-converted-to.pdf, id=105, 794.97pt x 216.81pt>
+File: ../graphs-2drop/sequence-eps-converted-to.pdf Graphic file (type pdf)
+<use ../graphs-2drop/sequence-eps-converted-to.pdf>
+Package pdftex.def Info: ../graphs-2drop/sequence-eps-converted-to.pdf  used on input line 44.
+(pdftex.def)             Requested size: 360.0pt x 98.18555pt.
+ [4 <../graphs-2drop/cwnd-eps-converted-to.pdf> <../graphs-2drop/sequence-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <../graphs-3drop/cwnd.eps>
+(epstopdf)                    date: 2019-11-06 21:56:09
+(epstopdf)                    size: 23725 bytes
+(epstopdf)             Output file: <../graphs-3drop/cwnd-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-11-06 23:37:20
+(epstopdf)                    size: 12844 bytes
+(epstopdf)             Command: <epstopdf --outfile=../graphs-3drop/cwnd-eps-converted-to.pdf ../graphs-3drop/cwnd.eps>
+(epstopdf)             \includegraphics on input line 53.
+Package epstopdf Info: Output file is already uptodate.
+<../graphs-3drop/cwnd-eps-converted-to.pdf, id=164, 462.52798pt x 346.89601pt>
+File: ../graphs-3drop/cwnd-eps-converted-to.pdf Graphic file (type pdf)
+<use ../graphs-3drop/cwnd-eps-converted-to.pdf>
+Package pdftex.def Info: ../graphs-3drop/cwnd-eps-converted-to.pdf  used on input line 53.
+(pdftex.def)             Requested size: 360.0pt x 270.01141pt.
+Package epstopdf Info: Source file: <../graphs-3drop/sequence.eps>
+(epstopdf)                    date: 2019-11-06 21:56:09
+(epstopdf)                    size: 46879 bytes
+(epstopdf)             Output file: <../graphs-3drop/sequence-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-11-06 23:37:21
+(epstopdf)                    size: 86780 bytes
+(epstopdf)             Command: <epstopdf --outfile=../graphs-3drop/sequence-eps-converted-to.pdf ../graphs-3drop/sequence.eps>
+(epstopdf)             \includegraphics on input line 54.
+Package epstopdf Info: Output file is already uptodate.
+<../graphs-3drop/sequence-eps-converted-to.pdf, id=165, 794.97pt x 216.81pt>
+File: ../graphs-3drop/sequence-eps-converted-to.pdf Graphic file (type pdf)
+<use ../graphs-3drop/sequence-eps-converted-to.pdf>
+Package pdftex.def Info: ../graphs-3drop/sequence-eps-converted-to.pdf  used on input line 54.
+(pdftex.def)             Requested size: 360.0pt x 98.18555pt.
+ [5 <../graphs-3drop/cwnd-eps-converted-to.pdf> <../graphs-3drop/sequence-eps-converted-to.pdf>] [6] (/Users/kailean.okeefe/Desktop/bene/lab3/report/report.aux) ) 
+Here is how much of TeX's memory you used:
+ 1486 strings out of 492616
+ 23015 string characters out of 6129482
+ 83160 words of memory out of 5000000
+ 5391 multiletter control sequences out of 15000+600000
+ 7887 words of font info for 28 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 42i,6n,23p,459b,189s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on /Users/kailean.okeefe/Desktop/bene/lab3/report/report.pdf (6 pages, 343497 bytes).
+PDF statistics:
+ 241 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+

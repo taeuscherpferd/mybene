@@ -75,6 +75,7 @@ class Main(object):
         (options, args) = parser.parse_args()
         self.filename = options.filename
         self.drop = [int(x) for x in options.drop.split(',') if x.strip().isdigit()]
+        print(self.drop)
         self.loss = options.loss
         self.window = options.window
         self.debug = options.debug
