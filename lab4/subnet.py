@@ -1,5 +1,6 @@
 import binascii
 import socket
+from fuzzywuzzy import fuzz
 
 int_type_int = type(0xff)
 int_type_long = type(0xffffffffffffffff)
@@ -69,13 +70,12 @@ class IPAddress(object):
 
     def mask(self, prefix_len):
         '''Return the mask for the given prefix length, as an integer.'''
-        #FIXME
-        return 0
+        offset = 32 - prefix_len 
+        return self._all_ones(prefix_len) << offset
 
     def prefix(self, prefix_len):
         '''Return the prefix for the given prefix length, as an integer.  Note
         that address_len is also needed.'''
-        #FIXME
         return 0
 
     def subnet(self, prefix_len):
@@ -84,21 +84,21 @@ class IPAddress(object):
 class Subnet(object):
     '''
     >>> IPAddress('128.187.0.1') in Subnet(IPAddress('128.187.0.0'), 24)
-    None
+    True 
     >>> IPAddress('128.187.0.1') in Subnet(IPAddress('128.188.0.0'), 16)
-    None
+    False
     >>> IPAddress('128.187.0.0') in Subnet(IPAddress('128.187.0.0'), 23)
-    None
+    True
     >>> IPAddress('128.187.1.0') in Subnet(IPAddress('128.187.0.0'), 23)
-    None
+    True
     >>> IPAddress('128.187.2.0') in Subnet(IPAddress('128.187.0.0'), 23)
-    None
+    False
     >>> IPAddress('2001:db8:f00d::1') in Subnet(IPAddress('2001:db8::'), 32)
-    None
+    True 
     >>> IPAddress('2001:db8:f00d::1') in Subnet(IPAddress('2001:db8::'), 64)
-    None
+    False
     >>> IPAddress('2001:db8::feed:1:1') in Subnet(IPAddress('2001:db8::'), 96)
-    None
+    False 
     '''
     def __init__(self, prefix, prefix_len):
         self.prefix = prefix
@@ -113,8 +113,7 @@ class Subnet(object):
 
     def __contains__(self, ip):
         '''Return True if ip is in this subnet, False otherwise.'''
-        #FIXME
-        return ip == self.prefix
+        return self.prefix.find(ip) == 0
 
     def __hash__(self):
         return hash((self.prefix, self.prefix_len))
@@ -131,19 +130,19 @@ class ForwardingTable(object):
     >>> table.add_entry(Subnet(IPAddress('128.187.0.0'), 24), 3, IPAddress('128.187.1.1'))
     >>> table.add_entry(Subnet(IPAddress('128.187.0.0'), 30), 4, IPAddress('128.187.1.1'))
     >>> table.get_forwarding_entry(IPAddress('128.187.0.1'))[0]
-    'foo'
+    '4'
     >>> table.get_forwarding_entry(IPAddress('128.187.0.3'))[0]
-    'foo'
+    '4'
     >>> table.get_forwarding_entry(IPAddress('128.187.0.4'))[0]
-    'foo'
+    '3'
     >>> table.get_forwarding_entry(IPAddress('128.187.1.1'))[0]
-    'foo'
+    '2'
     >>> table.get_forwarding_entry(IPAddress('128.187.2.1'))[0]
-    'foo'
+    '1'
     >>> table.get_forwarding_entry(IPAddress('128.187.3.1'))[0]
-    'foo'
+    '1'
     >>> table.get_forwarding_entry(IPAddress('128.187.4.1'))[0]
-    'foo'
+    '0'
     '''
     def __init__(self):
         self.entries = {}
@@ -160,8 +159,10 @@ class ForwardingTable(object):
         Return the entry having the longest prefix match of ip_address.  If
         there is no match, return (None, None).
         '''
-        #FIXME
         subnet = Subnet(ip_address, ip_address.address_len)
+        for entry in self.entries:
+          pass
+
         if subnet in self.entries:
             return self.entries[subnet]
         else:
